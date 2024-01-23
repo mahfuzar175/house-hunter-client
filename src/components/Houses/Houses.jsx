@@ -4,7 +4,7 @@ import House from "./House";
 const Houses = () => {
     const [houses, setHouses] = useState([]);
     useEffect(() => {
-        fetch('houses.json')
+        fetch('http://localhost:5000/houses')
         .then(res => res.json())
         .then(data => setHouses(data))
     }, [])

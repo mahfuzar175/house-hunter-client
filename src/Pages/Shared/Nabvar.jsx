@@ -4,13 +4,16 @@ const Nabvar = () => {
   const navOptions = (
     <>
       <li>
-        <a>Home</a>
+        <Link>Home</Link>
       </li>
       <li>
-        <a>About</a>
+        <Link>About</Link>
       </li>
       <li>
-        <a>Contact</a>
+        <Link>Contact</Link>
+      </li>
+      <li>
+        <Link >Login</Link>
       </li>
     </>
   );

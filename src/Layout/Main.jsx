@@ -1,15 +1,18 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../Pages/Shared/Footer";
 import Nabvar from "../Pages/Shared/Nabvar";
 
 const Main = () => {
+  const location = useLocation();
+  const isLoginPage = location.pathname.includes('register');
+  const isRegisterPage = location.pathname.includes('login');
   return (
     <div className="flex flex-col min-h-screen">
-      <Nabvar></Nabvar>
+      { isLoginPage || isRegisterPage || <Nabvar></Nabvar>}
       <div className="flex-grow">
         <Outlet></Outlet>
       </div>
-      <Footer></Footer>
+      { isLoginPage || isRegisterPage ||  <Footer></Footer>}
     </div>
   );
 };
