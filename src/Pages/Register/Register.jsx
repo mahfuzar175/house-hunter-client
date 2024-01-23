@@ -1,12 +1,15 @@
+import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&_-]{8,}$/;
 
 const Register = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const navigate = useNavigate();
 
   const {
     register,
@@ -39,7 +42,41 @@ const Register = () => {
       );
       return;
     }
-  };
+
+
+    try {
+        const response = await axios.post('http://localhost:5000/allUsers', {
+            name: data.name,
+            role: data.role,
+            phone: data.phone,
+            email: data.email,
+            password: data.password
+        });
+
+        // Handle successful registration (e.g., display a success message or redirect to login page)
+
+        if (response.data.message) {
+            event.target.reset();
+            navigate('/login');
+            Swal.fire({
+                title: `Successful`,
+                text: 'Registration completed, Now you can login!',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
+        }
+    } catch (error) {
+        // Handle registration error (e.g., display an error message)
+        console.error('Error registering user:', error.response.data.message);
+        setError(error.response.data.message)
+        Swal.fire({
+            title: `Error`,
+            text: 'Something went wrong, please try again!',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+        })
+    }
+}
 
   return (
     <div>

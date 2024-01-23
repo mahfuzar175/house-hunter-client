@@ -1,18 +1,63 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const Login = () => {
 
     const {setIsLoggedIn} = useContext(AuthContext);
+    const { register, handleSubmit, formState: { errors }, } = useForm();
 
-    const handleLogin = event =>{
-        event.preventDefault();
-        const form = event.target;
-        const email = form.email.value;
-        const password = form.password.value;
-        console.log(email, password);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || '/dashboard';
 
+    const handleLogin = async (data, e) => {
+        e.preventDefault();
+
+        try {
+            const response = await axios.post('http://localhost:5000/login', {
+                email: data.email,
+                password: data.password
+            });
+
+            const userData = response.data.user;
+            if (userData) {
+                axios.post('http://localhost:5000/jwt', { email: userData.email })
+                    .then(response => {
+                        localStorage.setItem('access-token', response.data.token);
+                        localStorage.setItem('user-data', JSON.stringify(userData));
+                        setIsLoggedIn(true);
+                        navigate(from, { replace: true });
+                        window.location.reload();
+                        Swal.fire({
+                            title: `Success`,
+                            text: 'Your login successful!',
+                            icon: 'success',
+                            confirmButtonText: 'Ok'
+                        })
+                    })
+            }
+            else {
+                localStorage.removeItem('access-token');
+                localStorage.removeItem('user-data');
+                Swal.fire({
+                    title: `Error`,
+                    text: 'Something went wrong, please try again!',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                })
+            }
+        } catch (error) {
+            Swal.fire({
+                title: `Error`,
+                text: 'Something went wrong, please try again!',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            })
+        }
     }
 
     return (
@@ -24,12 +69,13 @@ const Login = () => {
       <h1 className="text-lg text-gray-500 font-bold">Login and get house updates!</h1>
     </div>
     <div className="card shrink-0 w-full max-w-sm  shadow-2xl bg-base-100">
-      <form onSubmit={handleLogin} className="card-body">
+      <form onSubmit={handleSubmit(handleLogin)} className="card-body">
         <div className="form-control">
-          <input type="email" name="email" placeholder="Enter your email" className="input input-bordered" required />
+          <input {...register('email', { required: true })} type="email" name="email" placeholder="Enter your email" className="input input-bordered" required />
+          {errors.email && <p className='text-red-400 text-[15px]'>Invalid email address!!</p>}
         </div>
         <div className="form-control">
-          <input type="password" name="password" placeholder="Enter your password" className="input input-bordered" required />
+          <input {...register('password', { required: true })} type="password" name="password" placeholder="Enter your password" className="input input-bordered" required />
         </div>
         <div className="form-control mt-2">
           <button className="btn btn-primary">Login</button>
