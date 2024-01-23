@@ -1,18 +1,23 @@
+import { Link } from "react-router-dom";
+
 const Nabvar = () => {
   const navOptions = (
     <>
       <li>
-        <a>Item 1</a>
+        <a>Home</a>
       </li>
       <li>
-        <a>Item 3</a>
+        <a>About</a>
+      </li>
+      <li>
+        <a>Contact</a>
       </li>
     </>
   );
 
   return (
     <div>
-      <div className="navbar bg-base-100 border mb-8">
+      <div className="navbar bg-base-100 border">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -44,8 +49,30 @@ const Nabvar = () => {
           <ul className="menu menu-horizontal px-1">{navOptions}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
-        </div>
+                    <div className="dropdown dropdown-end">
+
+                                <div id='parent-user-profile' className='flex items-center gap-x-1'>
+
+                                    <Link to='/dashboard' className='badge bg-[var(--primary-color)] text-white -mb-1 cursor-pointer w-full font-normal p-4 text-[17px]'>User name</Link>
+                                    <label id='user-pic' tabIndex={0} className=" btn btn-ghost btn-circle avatar flex-row-reverse">
+                                        <div className="w-12 rounded-full">
+                                            <img src='https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg' />
+                                        </div>
+                                    </label>
+                                </div>
+                                <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                                    <li>
+                                        <Link to='/dashboard' className="justify-between">
+                                            Dashboard
+                                            <span className="badge">New</span>
+                                        </Link>
+                                    </li>
+                                    <li><Link className="">Logout</Link></li>
+                                </ul>
+                          <Link to='/login' className='btn'>Login Now</Link>
+                        
+                    </div>
+                </div>
       </div>
     </div>
   );

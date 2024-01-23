@@ -1,7 +1,10 @@
+import Houses from "../components/Houses/Houses";
+import Banner from "../components/banner";
+
 const Home = () => {
   return (
     <div>
-      <div className="px-16">
+      {/* <div className="px-16">
         <form>
           <label
             htmlFor="default-search"
@@ -42,8 +45,9 @@ const Home = () => {
             </button>
           </div>
         </form>
-      </div>
-      <h2>This is home</h2>
+      </div> */}
+      <Banner></Banner>
+      <Houses></Houses>
     </div>
   );
 };
