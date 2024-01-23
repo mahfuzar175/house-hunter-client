@@ -46,6 +46,7 @@ const Home = () => {
           </div>
         </form>
       </div> */}
+      <hr />
       <Banner></Banner>
       <Houses></Houses>
     </div>

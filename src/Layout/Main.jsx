@@ -7,7 +7,7 @@ const Main = () => {
   const isLoginPage = location.pathname.includes('register');
   const isRegisterPage = location.pathname.includes('login');
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="w-full lg:max-w-[1240px] mx-auto">
       { isLoginPage || isRegisterPage || <Nabvar></Nabvar>}
       <div className="flex-grow">
         <Outlet></Outlet>
