@@ -1,13 +1,26 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../Providers/AuthProvider";
 
 const Nabvar = () => {
   const { logout, user } = useContext(AuthContext);
+  const [loggingOut, setLoggingOut] = useState(false);
+
 
   const handleLogout = () => {
-    logout();
+    setLoggingOut(true);
+    logout()
+      .then(() => {
+        console.log("User signed out successfully");
+      })
+      .catch((error) => {
+        console.error("Error signing out: ", error.message);
+      })
+      .finally(() => {
+        setLoggingOut(false);
+      });
   };
+  
 
   const navOptions = (
     <>
@@ -21,6 +34,13 @@ const Nabvar = () => {
         <Link>Contact</Link>
       </li>
       <li>{user ? <Link to="/dashboard">Dashboard</Link> : ""}</li>
+      {!user && (
+        <li>
+          <Link to="/login" activeClassName="font-bold" className='font-semibold' disabled={loggingOut}>
+            Login
+          </Link>
+        </li>
+      )}
     </>
   );
 
