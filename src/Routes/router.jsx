@@ -35,7 +35,7 @@ import Dashboard from "../Layout/Dashboard";
       children: [
           {
               path: '/dashboard',
-              element: 
+              element: <Dashboard></Dashboard>
           },
           
       ]
