@@ -18,14 +18,14 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5000/login', {
+            const response = await axios.post('https://house-hunter-server-mu-two.vercel.app/login', {
                 email: data.email,
                 password: data.password
             });
 
             const userData = response.data.user;
             if (userData) {
-                axios.post('http://localhost:5000/jwt', { email: userData.email })
+                axios.post('https://house-hunter-server-mu-two.vercel.app/jwt', { email: userData.email })
                     .then(response => {
                         localStorage.setItem('access-token', response.data.token);
                         localStorage.setItem('user-data', JSON.stringify(userData));

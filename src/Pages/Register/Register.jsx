@@ -45,7 +45,7 @@ const Register = () => {
 
 
     try {
-        const response = await axios.post('http://localhost:5000/allUsers', {
+        const response = await axios.post('https://house-hunter-server-mu-two.vercel.app/allUsers', {
             name: data.name,
             role: data.role,
             phone: data.phone,

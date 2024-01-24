@@ -4,8 +4,7 @@ import { FaRegBookmark } from "react-icons/fa";
 import { FaBath } from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
-// import { useQuery } from "@tanstack/react-query";
-// import Swal from "sweetalert2";
+
 const House = ({ item }) => {
   const {
     name,
@@ -21,72 +20,6 @@ const House = ({ item }) => {
 
   const { user } = useContext(AuthContext);
   const isHouseOwner = user.role === "House Owner";
-
-    // const { data: allBookings = [], refetch } = useQuery(['allBookings'], async () => {
-    //     const res = await fetch(`http://localhost:5000/allBookings/email?email=${user?.email}`);
-    //     return res.json();
-    // })
-
-    // const handleAddBookings = (bookedHouse) => {
-    //     let exist = allBookings.find(booking => booking.mainId == item._id);
-    //     if (allBookings.length >= 2) {
-    //         Swal.fire({
-    //             title: `You have 2 booking limit`,
-    //             text: 'Free up space or delete some and then try again!',
-    //             icon: 'error',
-    //             confirmButtonText: 'Ok'
-    //         })
-    //         return;
-    //     }
-    //     if (exist) {
-    //         Swal.fire({
-    //             title: `Not Added`,
-    //             text: 'Bookings already added!',
-    //             icon: 'warning',
-    //             confirmButtonText: 'Ok'
-    //         })
-    //         return;
-    //     }
-
-    //     const bookedHouseInfo = {
-    //         mainId: item._id,
-    //         city: bookedHouse.city,
-    //         room_size: bookedHouse.room_size,
-    //         address: bookedHouse.address,
-    //         name: bookedHouse.name,
-    //         bedrooms: bookedHouse.bedrooms,
-    //         bathrooms: bookedHouse.bathrooms,
-    //         description: bookedHouse.description,
-    //         picture: bookedHouse.picture,
-    //         rent_per_month: bookedHouse.rent_per_month,
-    //         availability_date: bookedHouse.availability_date,
-    //         houseOwner: bookedHouse.houseOwner,
-    //         ownerPhone: bookedHouse.ownerPhone,
-    //         ownerEmail: bookedHouse.ownerEmail,
-    //         renterEmail: user.email,
-    //         renterName: user.name
-    //     }
-
-    //     fetch('http://localhost:5000/allBookings', {
-    //         method: 'POST',
-    //         headers: {
-    //             'content-type': 'application/json',
-    //         },
-    //         body: JSON.stringify(bookedHouseInfo)
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             if (data.insertedId) {
-    //                 refetch();
-    //                 Swal.fire({
-    //                     title: `Successful`,
-    //                     text: 'Bookings added successful',
-    //                     icon: 'success',
-    //                     confirmButtonText: 'Continue'
-    //                 })
-    //             }
-    //         })
-    // }
 
 
 
